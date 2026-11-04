@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend (Spring Boot)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.example.dememalibackend.DemeMalibackendApplication",
+      "projectName": "demeMalibackend",
+      "cwd": "${workspaceFolder}/Diallacoulibaly-deme-mali-backend"
+    },
+    {
+      "name": "Frontend (Angular)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "start-frontend",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/deme-mali-frontend",
+      "timeout": 30000
+    },
+    {
+      "name": "Mobile (Flutter)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/deme_mali_mobile",
+      "program": "${workspaceFolder}/deme_mali_mobile/lib/main.dart"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Lancer les trois (Backend + Frontend + Mobile)",
+      "configurations": [
+        "Backend (Spring Boot)",
+        "Frontend (Angular)",
+        "Mobile (Flutter)"
+      ],
+      "stopAll": true
+    }
+  ]
+}

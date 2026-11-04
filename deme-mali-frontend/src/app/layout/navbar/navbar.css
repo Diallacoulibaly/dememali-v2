@@ -1,0 +1,84 @@
+/* Styles spécifiques pour le topbar de l'interface Organisation - Charte Dèmè Mali */
+
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1045;
+  width: 100%;
+}
+
+.topbar {
+  width: 100%;
+  height: 64px;
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid var(--rg-line, #E5E7EB);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.06);
+}
+
+.icon-btn {
+  color: #0F7A4B;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.icon-btn svg {
+  color: #0F7A4B;
+}
+
+.icon-btn:hover {
+  background-color: #E2F2E9;
+  border-color: #D5EBDD;
+  color: #0B633D;
+}
+
+.icon-btn:hover svg {
+  color: #0B633D;
+}
+
+.notif-count {
+  background-color: #D97706;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.topbar-date {
+  background-color: #E2F2E9;
+  color: #0F7A4B;
+}
+
+.user-btn:hover svg {
+  color: #0F7A4B;
+}
+
+.dropdown-item svg {
+  color: #0F7A4B;
+  transition: transform 0.15s ease;
+}
+
+.dropdown-item:hover svg {
+  color: #0B633D;
+  transform: translateX(2px);
+}
+
+.dropdown-item.text-danger svg {
+  color: #DC2626;
+}
+
+.dropdown-item.text-danger:hover svg {
+  color: #B91C1C;
+}
+
+.notif-icon.tone-info {
+  background: #E2F2E9;
+  color: #0F7A4B;
+}
+
+.notif-icon.tone-warning {
+  background: #FFF9E6;
+  color: #D97706;
+}
+
+.notif.is-unread::after {
+  background: #0F7A4B;
+}

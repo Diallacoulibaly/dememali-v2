@@ -1,0 +1,291 @@
+<div class="sidebar-inner">
+
+  <div class="sidebar-head">
+
+    <a
+      class="brand"
+      routerLink="/organisation/dashboard"
+      aria-label="Dèmè Mali - Tableau de bord">
+
+      <span class="brand-mark">
+        <img
+          src="assets/img/LOGO.png"
+          alt="Logo Dèmè Mali"
+          class="logos-image">
+      </span>
+
+      <span class="brand-text">
+        <span class="brand-name">Dèmè Mali</span>
+      </span>
+
+    </a>
+
+    <!-- Bouton fermer sur petit écran uniquement -->
+    <button
+      type="button"
+      class="sidebar-close d-lg-none"
+      aria-label="Fermer le menu"
+      (click)="fermerSidebar()">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+
+        <path d="M18 6 6 18"/>
+        <path d="M6 6l12 12"/>
+
+      </svg>
+
+    </button>
+
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Navigation principale">
+
+    <!-- VUE D'ENSEMBLE -->
+    <p class="nav-heading">Vue d'ensemble</p>
+
+    <ul class="nav-list">
+
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/dashboard"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+
+          </svg>
+
+          <span class="nav-label">Tableau de bord</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- ACTIVITÉS -->
+    <p class="nav-heading">Activités</p>
+
+    <ul class="nav-list">
+
+      <!-- Demandes d'aide -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/demandes-aide"
+          routerLinkActive="is-active">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+
+          </svg>
+
+          <span class="nav-label">Demandes d'aide</span>
+        </a>
+      </li>
+
+      <!-- Études de terrain -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/etudes-terrain"
+          routerLinkActive="is-active">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 8.5 12"/>
+
+          </svg>
+
+          <span class="nav-label">Études de terrain</span>
+        </a>
+      </li>
+      <!-- Dons reçus -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/dons-reçus"
+          routerLinkActive="is-active">
+
+          <mat-icon>card_giftcard</mat-icon>
+          <span class="nav-label">Dons reçus</span>
+        </a>
+      </li>
+
+      <!-- Dons attribués -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/dons-attribues"
+          routerLinkActive="is-active">
+
+          <mat-icon>assignment_turned_in</mat-icon>
+          <span class="nav-label">Dons attribués</span>
+        </a>
+      </li>
+
+      <!-- Affectation des dons -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/affectations-dons"
+          routerLinkActive="is-active">
+
+          <mat-icon>assignment_ind</mat-icon>
+          <span class="nav-label">Affectation des dons</span>
+        </a>
+      </li>
+
+      <!-- Aides distribuées -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/aide-distribuee"
+          routerLinkActive="is-active">
+
+          <mat-icon>volunteer_activism</mat-icon>
+          <span class="nav-label">Aides distribuées</span>
+        </a>
+      </li>
+
+
+    </ul>
+
+    <!-- SUIVI -->
+    <p class="nav-heading">Suivi</p>
+
+    <ul class="nav-list">
+
+      <!-- Bénéficiaires -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/beneficiaires"
+          routerLinkActive="is-active">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+
+          </svg>
+
+          <span class="nav-label">Bénéficiaires</span>
+        </a>
+      </li>
+
+   
+
+    </ul>
+
+    <!-- ORGANISATION -->
+    <p class="nav-heading">Organisation</p>
+
+    <ul class="nav-list">
+
+      <!-- Mon organisation -->
+      <li>
+        <a
+          class="nav-item-link"
+          routerLink="/organisation/mon-organisation"
+          routerLinkActive="is-active">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+
+          </svg>
+
+          <span class="nav-label">Mon organisation</span>
+        </a>
+      </li>
+
+    </ul>
+
+    <!-- DÉCONNEXION -->
+    <ul class="nav-list">
+
+      <li>
+        <button
+          type="button"
+          class="nav-item-link nav-logout"
+          (click)="logout()">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <path d="m16 17 5-5-5-5"/>
+            <path d="M21 12H9"/>
+
+          </svg>
+
+          <span class="nav-label">Se déconnecter</span>
+        </button>
+      </li>
+
+    </ul>
+
+  </nav>
+
+</div>

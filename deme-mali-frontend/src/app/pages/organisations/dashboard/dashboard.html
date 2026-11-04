@@ -1,0 +1,191 @@
+<main id="main" class="main" tabindex="-1">
+
+  <header class="page-top mb-4">
+    <div>
+      <p class="page-sub">Voici un aperçu de l'activité de votre organisation.</p>
+    </div>
+  </header>
+
+<!-- 4 METRICS CARDS -->
+<!-- 4 METRICS CARDS -->
+<div class="row gx-3 gy-3 mb-4 statistiques-kpi">
+
+  <!-- Demandes -->
+  <div class="col-xl-3 col-lg-6 col-12">
+    <div class="panel carte-kpi">
+      <div class="icone-kpi">
+        <mat-icon>description</mat-icon>
+      </div>
+
+      <div class="contenu-kpi">
+        <span class="titre-kpi">Total des demandes</span>
+        <div class="valeur-kpi">
+          {{ (kpiStats.demandes * 10 < 10 ? "0" : "") + (kpiStats.demandes || 0) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demandes refusées -->
+  <div class="col-xl-3 col-lg-6 col-12">
+    <div class="panel carte-kpi">
+      <div class="icone-kpi">
+        <mat-icon>cancel</mat-icon>
+      </div>
+
+      <div class="contenu-kpi">
+        <span class="titre-kpi">Demandes refusées</span>
+        <div class="valeur-kpi">
+          {{ (kpiStats.demandesRefusees * 10 < 10 ? "0" : "") + (kpiStats.demandesRefusees || 0) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demandes en attente -->
+  <div class="col-xl-3 col-lg-6 col-12">
+    <div class="panel carte-kpi">
+      <div class="icone-kpi">
+        <mat-icon>hourglass_empty</mat-icon>
+      </div>
+
+      <div class="contenu-kpi">
+        <span class="titre-kpi">Demandes en attente</span>
+        <div class="valeur-kpi">
+          {{ (kpiStats.demandesAttente * 10 < 10 ? "0" : "") + (kpiStats.demandesAttente || 0) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demandes traitées -->
+  <div class="col-xl-3 col-lg-6 col-12">
+    <div class="panel carte-kpi">
+      <div class="icone-kpi">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+
+      <div class="contenu-kpi">
+        <span class="titre-kpi">Demandes traitées</span>
+        <div class="valeur-kpi">
+          {{ (kpiStats.demandesTraitees * 10 < 10 ? "0" : "") + (kpiStats.demandesTraitees || 0) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- NOTRE IMPACT -->
+  <div class="panel p-4 mb-4" style="border-radius: 12px; border: 1px solid #eee; background: white;">
+    <h2 style="font-size: 18px; margin-bottom: 20px; font-weight: 600;">Notre impact</h2>
+    <div class="row text-center align-items-center">
+      <div class="col-md-4 col-12 mb-3 mb-md-0" style="border-right: 1px solid #eee;">
+        <span style="background: #E8F5E9; color: #0F7A4B; padding: 4px 10px; border-radius: 20px; font-weight: bold; margin-right: 8px;">{{ impactStats.beneficiaires }}</span>
+        <span style="color: #666; font-size: 14px;">bénéficiaires aidés</span>
+      </div>
+      <div class="col-md-4 col-12 mb-3 mb-md-0" style="border-right: 1px solid #eee;">
+        <span style="background: #E8F5E9; color: #0F7A4B; padding: 4px 10px; border-radius: 20px; font-weight: bold; margin-right: 8px;">{{ impactStats.demandesTraitees }}</span>
+        <span style="color: #666; font-size: 14px;">demandes traitées</span>
+      </div>
+      <div class="col-md-4 col-12">
+        <span style="color: #0F7A4B; font-weight: bold; font-size: 16px; margin-right: 8px;">{{ impactStats.montantFCFA }}</span>
+        <span style="color: #666; font-size: 14px;">FCFA distribués</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW -->
+  <div class="row gx-4 mb-4">
+    <!-- Évolution des aides -->
+    <div class="col-lg-7 mb-4 mb-lg-0">
+      <div class="panel h-100 p-4" style="border-radius: 12px; border: 1px solid #eee; background: white;">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+          <div>
+            <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Évolution des aides</h2>
+            <p style="color: #666; font-size: 14px; margin: 0;">Montants collectés et distribués</p>
+          </div>
+          <div class="d-flex gap-3" style="font-size: 13px;">
+            <div class="d-flex align-items-center gap-1"><div style="width: 10px; height: 10px; border-radius: 50%; background: #0F7A4B;"></div> Collecté</div>
+            <div class="d-flex align-items-center gap-1"><div style="width: 10px; height: 10px; border-radius: 50%; background: #F1C40F;"></div> Distribué</div>
+          </div>
+        </div>
+        
+        <!-- Canvas pour le graphique dynamique Chart.js -->
+        <div style="height: 250px; width: 100%; position: relative;">
+           <canvas id="evolutionChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Répartition des demandes -->
+    <div class="col-lg-5">
+      <div class="panel h-100 p-4" style="border-radius: 12px; border: 1px solid #eee; background: white;">
+        <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Répartition des demandes</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 24px;">Par catégorie d'aide</p>
+
+        <!-- Bars Dynamiques -->
+        <div class="mb-3" *ngFor="let item of repartition">
+          <div class="d-flex justify-content-between mb-1" style="font-size: 14px;">
+            <span>{{ item.label }}</span>
+            <span style="font-weight: bold;">{{ item.percent }}%</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: #F7F3EA; border-radius: 4px; overflow: hidden;">
+            <div [style.width.%]="item.percent" [style.background]="item.color" style="height: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMANDES RÉCENTES -->
+  <div class="panel p-4" style="border-radius: 12px; border: 1px solid #eee; background: white;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Demandes récentes</h2>
+        <p style="color: #666; font-size: 14px; margin: 0;">Dernières demandes suivies par votre organisation</p>
+      </div>
+      <a routerLink="/organisation/demandes-aide" class="db-btn-link">Voir toutes les demandes &rarr;</a>
+    </div>
+
+    <div class="db-table-wrapper">
+      <table class="db-table">
+        <thead>
+          <tr>
+            <th style="padding-left: 0;">Demande</th>
+            <th>Bénéficiaire</th>
+            <th>Catégorie</th>
+            <th>Urgence</th>
+            <th>Statut</th>
+            <th style="text-align: right; padding-right: 0;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let demande of recentDemandes">
+            <td class="db-fw-600" style="padding-left: 0;">{{ demande.nom }}</td>
+            <td>{{ demande.beneficiaire }}</td>
+            <td>{{ demande.categorie }}</td>
+            <td>
+              <span class="db-badge" [ngClass]="demande.urgenceClass">
+                {{ demande.urgence }}
+              </span>
+            </td>
+            <td>
+              <span class="db-badge" [ngClass]="demande.statutClass">
+                {{ demande.statut }}
+              </span>
+            </td>
+            <td style="text-align: right; padding-right: 0;">
+              <a [routerLink]="['/organisation/demandes-aide', demande.id]" class="db-btn-action" style="text-decoration: none; cursor: pointer;">Voir</a>
+            </td>
+          </tr>
+          <tr *ngIf="recentDemandes.length === 0">
+            <td colspan="6" style="text-align: center; color: #888; padding: 28px 0; font-size: 14px;">
+              Aucune demande d'aide enregistrée pour vos bénéficiaires pour le moment.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

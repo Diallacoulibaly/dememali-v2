@@ -1,0 +1,192 @@
+﻿
+<div class="page-planification">
+  <header class="entete">
+    <div>
+   
+      <h1>Planifier une étude de terrain</h1>
+      <p>
+        Organisez une visite afin de vérifier le besoin présenté
+        dans la demande d'aide.
+      </p>
+    </div>
+
+    <button class="btn-retour" type="button" (click)="annuler()">
+      <mat-icon>arrow_back</mat-icon>
+      Retour
+    </button>
+  </header>
+
+  <div class="message" *ngIf="chargement">
+    Chargement de la demande...
+  </div>
+
+  <div class="message erreur" *ngIf="erreurChargement">
+    <mat-icon>error_outline</mat-icon>
+    {{ erreurChargement }}
+  </div>
+
+  <ng-container *ngIf="!chargement && demande">
+    <section class="carte">
+      <h2>Demande d'aide concernée</h2>
+
+      <div class="grille-demande">
+        <div>
+          <span>Titre</span>
+          <strong>{{ demande.titre }}</strong>
+        </div>
+
+        <div>
+          <span>Bénéficiaire</span>
+          <strong>
+            {{ demande.beneficiairePrenom }}
+            {{ demande.beneficiaireNom }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Catégorie</span>
+          <strong>
+            {{ demande.categorieDemandeNom || 'Non précisée' }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Niveau d'urgence</span>
+          <strong class="urgence">
+            {{ demande.niveauUrgence }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Référence</span>
+          <strong>Demande {{ demande.id }}</strong>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn-secondaire"
+        (click)="consulterDemandes()">
+        Voir les demandes
+      </button>
+    </section>
+
+    <form
+      class="carte formulaire"
+      #formPlanification="ngForm"
+      (ngSubmit)="enregistrer()"
+      novalidate>
+
+      <h2>Informations de la visite</h2>
+
+    
+
+      <div class="grille-champs">
+        <div class="champ">
+          <label for="datePlanification">
+            Date prévue de la visite <span>*</span>
+          </label>
+
+          <input
+            id="datePlanification"
+            type="date"
+            name="datePlanification"
+            [(ngModel)]="datePlanification"
+            [min]="dateDuJour"
+            [class.invalide]="champInvalide('datePlanification')"
+            required>
+
+          <small
+            class="erreur-champ"
+            *ngIf="champInvalide('datePlanification')">
+            {{ messageErreur('datePlanification') }}
+          </small>
+        </div>
+
+        <div class="champ">
+          <label for="heure">
+            Heure prévue <span>*</span>
+          </label>
+
+          <input
+            id="heure"
+            type="time"
+            name="heure"
+            [(ngModel)]="heure"
+            [class.invalide]="champInvalide('heure')"
+            required>
+
+          <small
+            class="erreur-champ"
+            *ngIf="champInvalide('heure')">
+            {{ messageErreur('heure') }}
+          </small>
+        </div>
+
+        <div class="champ">
+          <label for="lieu">
+            Lieu <span>*</span>
+          </label>
+
+          <input
+            id="lieu"
+            type="text"
+            name="lieu"
+            [(ngModel)]="lieu"
+            maxlength="255"
+            placeholder="Ex. : Bamako, Kalaban-Coura..."
+            [class.invalide]="champInvalide('lieu')"
+            required>
+
+          <small
+            class="erreur-champ"
+            *ngIf="champInvalide('lieu')">
+            {{ messageErreur('lieu') }}
+          </small>
+        </div>
+      </div>
+
+      <div class="champ">
+        <label for="objectif">
+          Objectif de la visite <span>*</span>
+        </label>
+
+        <textarea
+          id="objectif"
+          name="objectif"
+          [(ngModel)]="objectif"
+          rows="4"
+          placeholder="Décrivez les vérifications et les besoins à identifier..."
+          [class.invalide]="champInvalide('objectif')"
+          required></textarea>
+
+        <small
+          class="erreur-champ"
+          *ngIf="champInvalide('objectif')">
+          {{ messageErreur('objectif') }}
+        </small>
+      </div>
+
+      <footer class="actions">
+        <button
+          class="btn-annuler"
+          type="button"
+          (click)="annuler()"
+          [disabled]="enregistrement">
+          Annuler
+        </button>
+
+        <button
+  class="btn-principal"
+  type="submit"
+  [disabled]="enregistrement || chargement">
+  {{
+    enregistrement
+      ? 'Enregistrement...'
+      : "Planifier l'étude"
+  }}
+</button>
+      </footer>
+    </form>
+  </ng-container>
+</div>

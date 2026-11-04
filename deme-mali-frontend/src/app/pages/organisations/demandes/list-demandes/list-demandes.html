@@ -1,0 +1,347 @@
+<div class="contenu">
+
+  <!-- En-tête -->
+  <div class="entete">
+    <div>
+      <h1>Demandes d'aide</h1>
+      <p>
+        Consultez et suivez les demandes d'aide de votre organisation.
+      </p>
+    </div>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="statistiques">
+
+    <div class="carte">
+      <div class="icone">
+        <mat-icon>description</mat-icon>
+      </div>
+      <div>
+        <p>Total des demandes</p>
+        <h2>{{ totalDemandes }}</h2>
+      </div>
+    </div>
+
+    <div class="carte">
+      <div class="icone">
+        <mat-icon>hourglass_empty</mat-icon>
+      </div>
+      <div>
+        <p>En attente</p>
+        <h2>{{ demandesAttente }}</h2>
+      </div>
+    </div>
+
+    <div class="carte">
+      <div class="icone">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div>
+        <p>Demandes traitées</p>
+        <h2>{{ demandesTraitees }}</h2>
+      </div>
+    </div>
+
+    <div class="carte">
+      <div class="icone">
+        <mat-icon>cancel</mat-icon>
+      </div>
+      <div>
+        <p>Demandes rejetées</p>
+        <h2>{{ demandesRefusees }}</h2>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Filtres -->
+  <div class="filtres">
+
+    <div class="recherche">
+      <mat-icon>search</mat-icon>
+
+      <input
+        type="text"
+        placeholder="Rechercher une demande..."
+        [(ngModel)]="recherche"
+        (input)="filtrer()">
+    </div>
+
+    <select
+      [(ngModel)]="typeAideSelectionne"
+      (change)="filtrer()">
+
+      <option value="">Tous les types d'aide</option>
+      <option value="FINANCIERE">Financière</option>
+      <option value="MATERIELLE">Matérielle</option>
+
+    </select>
+
+    <select
+      [(ngModel)]="categorieSelectionnee"
+      (change)="filtrer()">
+
+      <option value="">Toutes les catégories</option>
+
+    <option
+  *ngFor="let categorie of categories"
+  [value]="categorie.id"
+>
+  {{ categorie.nom }}
+</option>
+    </select>
+
+    <select
+      [(ngModel)]="urgenceSelectionnee"
+      (change)="filtrer()">
+
+      <option value="">Toutes les urgences</option>
+      <option value="FORTE">Forte</option>
+      <option value="MOYENNE">Moyenne</option>
+      <option value="FAIBLE">Faible</option>
+
+    </select>
+
+  <select
+  [(ngModel)]="statutSelectionne"
+  (change)="filtrer()">
+
+  <option value="">Tous les statuts</option>
+  <option value="EN_ATTENTE">En attente</option>
+  <option value="VALIDEE">Validée</option>
+  <option value="REJETEE">Rejetée</option>
+
+</select>
+
+  </div>
+
+  <!-- Bouton nouvelle demande -->
+  <div class="bouton-container">
+    <button
+      type="button"
+      class="nouvelle"
+      (click)="nouvelleDemande()">
+
+      <mat-icon>add</mat-icon>
+      Ajouter demande
+
+    </button>
+  </div>
+
+  <!-- Tableau des demandes -->
+  <div class="tableau">
+
+    <h2>Liste des demandes</h2>
+
+    <div class="tableau-scroll">
+
+      <table class="table-demandes">
+
+        <thead>
+          <tr>
+            <th>Demande</th>
+  
+            <th>Type d'aide</th>
+            <th>Date de création</th>
+            <th>Montant nécessaire</th>
+            <th>Montant collecté</th>
+            <th>Urgence</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let demande of demandesFiltrees
+                | slice:(pageActuelle - 1) * demandesParPage
+                        :pageActuelle * demandesParPage
+            ">
+
+            <!-- Titre & Bénéficiaire -->
+            <td>
+              <strong class="titre-demande">
+                {{ demande.titre }}
+              </strong>
+              <div *ngIf="demande.beneficiairePrenom || demande.beneficiaireNom" style="font-size: 12px; color: #666; margin-top: 3px;">
+                Bénéficiaire : {{ demande.beneficiairePrenom }} {{ demande.beneficiaireNom }}
+              </div>
+            </td>
+
+           
+
+            <!-- Type d'aide -->
+            <td>
+              <span
+                class="type-aide"
+                [ngClass]="getClasseTypeAide(demande.typeDemandeAide)">
+
+                {{ getTypeAide(demande.typeDemandeAide) }}
+
+              </span>
+            </td>
+
+            <!-- Date de création -->
+            <td>
+              <span class="date-creation">
+                {{ demande.dateCreation | date:'dd/MM/yyyy' }}
+              </span>
+            </td>
+
+            <!-- Montant nécessaire ou total estimé -->
+            <td>
+              <span class="montant">
+                {{ getMontantEstime(demande) | number:'1.0-0' }}
+                FCFA
+              </span>
+
+             
+            </td>
+
+            <!-- Montant collecté -->
+            <td>
+              <ng-container
+                *ngIf="
+                  demande.typeDemandeAide === 'FINANCIERE';
+                  else montantNonApplicable
+                ">
+
+                <span class="montant montant-collecte">
+                  {{ (demande.montantCollecte || 0) | number:'1.0-0' }}
+                  FCFA
+                </span>
+
+              </ng-container>
+
+              <ng-template #montantNonApplicable>
+                <span class="non-applicable">—</span>
+              </ng-template>
+            </td>
+
+            <!-- Urgence -->
+            <td>
+              <span
+                class="urgence"
+                [ngClass]="getClasseUrgence(demande.niveauUrgence)">
+
+                {{ demande.niveauUrgence }}
+
+              </span>
+            </td>
+
+            <!-- Statut -->
+            <td>
+              <span
+                class="statut"
+                [ngClass]="getClasseStatut(demande.statut)">
+
+                {{ demande.statut }}
+
+              </span>
+            </td>
+
+            <!-- Actions -->
+            <td>
+              <div class="actions-demande">
+
+                  <button
+                  type="button"
+                  class="action-icone"
+                  title="Voir les détails"
+                  aria-label="Voir les détails"
+                  (click)="voirDemande(demande.id)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+
+           <button
+  type="button"
+  class="action-icone"
+  title="Modifier la demande"
+  aria-label="Modifier la demande"
+  (click)="modifierDemande(demande.id)">
+
+  <mat-icon>edit</mat-icon>
+
+</button>
+
+
+              </div>
+            </td>
+
+          </tr>
+
+          <!-- Aucune demande -->
+          <tr *ngIf="demandesFiltrees.length === 0">
+            <td colspan="9" class="aucune-demande">
+              Aucune demande trouvée.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Pagination mode défilement (si > 10 éléments) -->
+    <div
+      class="pagination"
+      *ngIf="demandesFiltrees.length > demandesParPage">
+
+      <p class="pagination-info">
+        Affichage de
+        {{ (pageActuelle - 1) * demandesParPage + 1 }}
+        à
+        {{
+          pageActuelle * demandesParPage > demandesFiltrees.length
+            ? demandesFiltrees.length
+            : pageActuelle * demandesParPage
+        }}
+        sur {{ demandesFiltrees.length }} demandes
+      </p>
+
+      <div class="pagination-boutons">
+        <button
+          type="button"
+          class="page-item"
+          [class.disabled]="pageActuelle === 1"
+          [disabled]="pageActuelle === 1"
+          (click)="pagePrecedente()"
+          title="Page précédente"
+          aria-label="Page précédente">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="page-item"
+          *ngFor="let page of pages"
+          [class.active]="page === pageActuelle"
+          (click)="allerPage(page)">
+          {{ page }}
+        </button>
+
+        <button
+          type="button"
+          class="page-item"
+          [class.disabled]="pageActuelle === nombrePages"
+          [disabled]="pageActuelle === nombrePages"
+          (click)="pageSuivante()"
+          title="Page suivante"
+          aria-label="Page suivante">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

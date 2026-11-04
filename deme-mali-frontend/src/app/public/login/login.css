@@ -1,0 +1,367 @@
+/* ==========================================================================
+   Page de connexion - Design épuré moderne Dèmè Mali
+   Arrière-plan : Haut vert #0F7A4B (trait plein droit 50%), Fond crème #F7F3EA
+   Proportions ultra-compactes, fines & harmonieuses
+   ========================================================================== */
+
+/* Page globale : fond crème chaleureux #F7F3EA */
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #F7F3EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Partie supérieure verte #0F7A4B en trait plein droit (50% de l'écran) */
+.auth-bg-split,
+.auth-bg-wave {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  background-color: #0F7A4B;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Conteneur de centrage */
+.auth-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Carte centrale : format ultra-compact et raffiné */
+.auth-card {
+  width: 370px;
+  max-width: 92vw;
+  min-height: auto;
+  padding: 24px 26px 20px 26px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.10),
+    0 3px 10px rgba(15, 122, 75, 0.08);
+  border: 1px solid rgba(213, 207, 195, 0.7);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  outline: none;
+}
+
+.auth-card:hover {
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.12),
+    0 4px 14px rgba(15, 122, 75, 0.10);
+}
+
+/* Logo Dèmè Mali centré dans un macaron circulaire élégant */
+.auth-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.auth-logo-frame {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(15, 122, 75, 0.16), 0 2px 6px rgba(0, 0, 0, 0.06);
+  border: 3px solid rgba(15, 122, 75, 0.18);
+  transition: transform 0.25s ease;
+}
+
+.auth-logo-frame:hover {
+  transform: scale(1.05);
+}
+
+.auth-logo-img {
+  height: 52px;
+  width: auto;
+  max-width: 58px;
+  object-fit: contain;
+  display: block;
+}
+
+/* En-tête : Titre et sous-titre */
+.auth-header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.auth-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1F2937;
+  letter-spacing: -0.01em;
+  margin: 0 0 2px 0;
+  text-transform: uppercase;
+}
+
+.auth-subtitle {
+  font-size: 0.80rem;
+  color: #6B7280;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Alertes d'erreur et information */
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  margin-bottom: 12px;
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-alert-danger {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+}
+
+.auth-alert-info {
+  background-color: #E2F2E9;
+  color: #0F7A4B;
+  border: 1px solid #C8E8D5;
+}
+
+/* Formulaire */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Champs avec label structuré */
+.auth-field {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input {
+  width: 100%;
+  height: 36px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #D5CFC3;
+  border-radius: 8px;
+  padding: 0 11px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #1F2937;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.auth-input::placeholder {
+  color: #9CA3AF;
+  font-weight: 400;
+  font-size: 0.80rem;
+}
+
+.auth-input:focus {
+  border-color: #0F7A4B !important;
+  box-shadow: 0 0 0 2.5px rgba(15, 122, 75, 0.18) !important;
+  outline: none !important;
+}
+
+.auth-input.with-toggle {
+  padding-right: 36px;
+}
+
+/* Bouton œil pour basculer la visibilité du mot de passe */
+.auth-pw-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #9CA3AF;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+  outline: none;
+}
+
+.auth-pw-toggle:hover {
+  color: #0F7A4B;
+}
+
+.auth-pw-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Message d'erreur sous le champ */
+.auth-field-error {
+  display: block;
+  font-size: 0.74rem;
+  color: #DC2626;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* Ligne "Mot de passe oublié ?" alignée à droite */
+.auth-forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -3px;
+  margin-bottom: 14px;
+}
+
+.auth-forgot-link {
+  color: #0F7A4B;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.auth-forgot-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* Bouton pilule arrondi "Connexion" */
+.auth-submit-btn {
+  width: 100%;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #0F7A4B;
+  color: #FFFFFF !important;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 122, 75, 0.25);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background-color: #0B633D;
+  box-shadow: 0 6px 18px rgba(15, 122, 75, 0.32);
+  transform: translateY(-1px);
+}
+
+.auth-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Spinner de chargement */
+.auth-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Lien d'inscription */
+.auth-footer-link {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.80rem;
+  color: #6B7280;
+}
+
+.auth-register-link {
+  color: #0F7A4B;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 5px;
+  transition: color 0.15s ease;
+}
+
+.auth-register-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 20px 18px 16px 18px;
+    border-radius: 14px;
+    width: 100%;
+  }
+
+  .auth-title {
+    font-size: 1.15rem;
+  }
+
+  .auth-logo-frame {
+    width: 64px;
+    height: 64px;
+  }
+
+  .auth-logo-img {
+    height: 44px;
+    max-width: 50px;
+  }
+
+  .auth-input {
+    height: 34px;
+    font-size: 0.80rem;
+  }
+
+  .auth-submit-btn {
+    height: 34px;
+    font-size: 0.84rem;
+  }
+}

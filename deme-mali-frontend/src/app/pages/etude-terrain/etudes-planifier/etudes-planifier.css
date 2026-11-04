@@ -1,0 +1,252 @@
+
+:host {
+  display: block;
+  color: #1F1F1F;
+}
+
+.page-planification {
+  min-height: 100%;
+  padding: 30px 35px;
+  background: #F7F3EA;
+  box-sizing: border-box;
+}
+
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.entete h1 {
+  margin: 8px 0;
+  color: #1F1F1F;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.entete p {
+  margin: 0;
+  color: #1F1F1F;
+  line-height: 1.6;
+}
+
+.carte {
+  padding: 26px;
+  margin-bottom: 22px;
+  background: #FFFFFF;
+  border: 1px solid #F7F3EA;
+  border-radius: 12px;
+}
+
+.carte h2 {
+  margin: 0 0 22px;
+  color: #0F7A4B;
+  font-size: 19px;
+}
+
+.grille-demande {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.grille-demande > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.grille-demande span {
+  color: #1F1F1F;
+  font-size: 13px;
+}
+
+.grille-demande strong {
+  overflow-wrap: anywhere;
+  color: #1F1F1F;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.urgence {
+  color: #0F7A4B;
+}
+
+.btn-retour,
+.btn-secondaire,
+.btn-annuler,
+.btn-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-retour,
+.btn-secondaire,
+.btn-annuler {
+  background: #FFFFFF;
+  border: 1px solid #0F7A4B;
+  color: #0F7A4B;
+}
+
+.btn-retour:hover,
+.btn-secondaire:hover,
+.btn-annuler:hover {
+  background: #F7F3EA;
+  color: #0F7A4B;
+}
+
+.btn-principal {
+  background: #0F7A4B;
+  color: #FFFFFF;
+  border: 1px solid #0F7A4B;
+}
+
+
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.formulaire .indication {
+  margin: -10px 0 22px;
+  color: #1F1F1F;
+  font-size: 13px;
+}
+
+.indication span,
+.champ label span {
+  color:#D32F2F;
+  font-weight: 700;
+}
+
+.grille-champs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 20px;
+}
+
+.champ label {
+  color: #1F1F1F;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.champ input,
+.champ textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #F7F3EA;
+  border-radius: 6px;
+  outline: none;
+  background: #FFFFFF;
+  color: #1F1F1F;
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.champ input {
+  min-height: 45px;
+}
+
+.champ textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.champ input:focus,
+.champ textarea:focus {
+  border-color: #0F7A4B;
+}
+
+
+
+.erreur-champ {
+  color: #D32F2F;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid #F7F3EA;
+  border-radius: 7px;
+  background: #FFFFFF;
+  color: #1F1F1F;
+}
+
+.message.erreur {
+  border: 1px solid #F7B500;
+  background: #F7F3EA;
+  color: #1F1F1F;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid #F7F3EA;
+}
+
+@media (max-width: 700px) {
+  .page-planification {
+    padding: 20px 15px;
+  }
+
+  .entete {
+    flex-direction: column;
+  }
+
+  .entete h1 {
+    font-size: 23px;
+  }
+
+  .carte {
+    padding: 19px;
+  }
+
+  .grille-demande,
+  .grille-champs {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,708 @@
+
+
+:host {
+  display: block;
+  min-height: 100%;
+  background: #F7F3EA;
+  color: #1F1F1F;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   CONTENEUR PRINCIPAL
+   ========================================== */
+
+.detail-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px 28px;
+  background: #F7F3EA;
+  color: #1F1F1F;
+}
+
+/* ==========================================
+   EN-TÊTE
+   ========================================== */
+
+.page-header {
+  margin-bottom: 22px;
+}
+
+.btn-retour {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: #0F7A4B;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.btn-retour mat-icon {
+  width: 19px;
+  height: 19px;
+  font-size: 19px;
+}
+
+.btn-retour:hover {
+  background: #FFFFFF;
+  border-color: #0F7A4B;
+}
+
+.titre-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #0F7A4B;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.sous-titre-page {
+  margin: 6px 0 0;
+  color: #1F1F1F;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   BLOC BLANC UNIQUE
+   Les sections restent dans le même conteneur
+   ========================================== */
+
+.detail-page > ng-container {
+  display: block;
+}
+
+.carte {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 24px 26px;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Première section : coins supérieurs */
+
+.carte:first-of-type {
+  border-radius: 12px 12px 0 0;
+}
+
+/* Séparateurs entre les sections */
+
+.carte + .carte {
+  border-top: 1px solid #F7F3EA;
+}
+
+/* Dernière section : coins inférieurs */
+
+.carte:last-of-type {
+  border-radius: 0 0 12px 12px;
+}
+
+/* ==========================================
+   TITRES DES SECTIONS
+   ========================================== */
+
+.section-titre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-titre h2 {
+  margin: 0 0 5px;
+  color: #0F7A4B;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.section-titre p {
+  margin: 0;
+  color: #1F1F1F;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   GRILLE DES INFORMATIONS
+   Aucun petit bloc individuel
+   ========================================== */
+
+.informations-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 36px;
+  row-gap: 12px;
+  width: 100%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.libelle {
+  color: #1F1F1F;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.information strong {
+  color: #1F1F1F;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.montant-important {
+  color: #0F7A4B !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.type-demande {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 18px;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+}
+
+/* Badge sans encadrement */
+
+.badge-type {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Type matériel */
+
+.badge-type.type-materiel {
+  border: none;
+  background: transparent;
+  color: #0F7A4B;
+}
+
+.badge-type mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.badge-type.type-financier {
+  color: #1F1F1F;
+}
+
+.badge-type.type-financier mat-icon {
+  color: #0F7A4B;
+}
+
+.badge-type.type-materiel {
+  border-color: #0F7A4B;
+  color: #0F7A4B;
+}
+
+/* ==========================================
+   DESCRIPTION DE LA DEMANDE
+   ========================================== */
+
+.titre-demande {
+  margin: 0 0 10px;
+  color: #1F1F1F;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.description-demande {
+  margin: 0 0 18px;
+  color: #1F1F1F;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   BOUTONS
+   ========================================== */
+
+.btn-principal,
+.btn-secondaire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid #0F7A4B;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.btn-principal {
+  color: #FFFFFF;
+  background: #0F7A4B;
+}
+
+.btn-principal:hover:not(:disabled) {
+  background: #0F7A4B;
+}
+
+.btn-secondaire {
+  margin-top: 18px;
+  color: #0F7A4B;
+  background: #FFFFFF;
+}
+
+.btn-secondaire:hover:not(:disabled) {
+  background: #F7F3EA;
+}
+
+.btn-principal:disabled,
+.btn-secondaire:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* ==========================================
+   PREUVES DE DISTRIBUTION
+   ========================================== */
+
+.preuves-grille {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.preuve-carte {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #F7F3EA;
+  border-radius: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.preuve-carte:hover {
+  border-color: #0F7A4B;
+}
+
+.preuve-image,
+.preuve-video {
+  display: block;
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  background: #F7F3EA;
+}
+
+.preuve-document {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 20px;
+  background: #F7F3EA;
+  text-align: center;
+}
+
+.preuve-document p {
+  margin: 0;
+  color: #0F7A4B;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.preuve-infos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px;
+  background: #FFFFFF;
+}
+
+.preuve-infos strong {
+  color: #1F1F1F;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.type-media {
+  color: #1F1F1F;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.lien-preuve {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: #0F7A4B;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lien-preuve:hover {
+  color: #0F7A4B;
+}
+
+/* ==========================================
+   TABLEAUX DES AFFECTATIONS
+   ========================================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #F7F3EA;
+  border-radius: 7px;
+}
+
+.table-responsive table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  background: #FFFFFF;
+}
+
+.table-responsive thead {
+  background: #F7F3EA;
+}
+
+.table-responsive th {
+  padding: 13px 14px;
+  background: #F7F3EA;
+  color: #1F1F1F;
+  border-bottom: 1px solid #F7F3EA;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.table-responsive td {
+  padding: 13px 14px;
+  color: #1F1F1F;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F7F3EA;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.table-responsive tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-responsive tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table-responsive tbody tr:hover td {
+  background: #F7F3EA;
+}
+
+.montant {
+  color: #0F7A4B !important;
+  font-weight: 400 !important;
+  white-space: nowrap;
+}
+
+.quantite {
+  color: #1F1F1F;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* ==========================================
+   TOTAL DES AFFECTATIONS
+   ========================================== */
+
+.total-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px 0 4px;
+  border-top: 1px solid #F7F3EA;
+  background: transparent;
+}
+
+.total-ligne span {
+  color: #1F1F1F;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.total-ligne strong {
+  color: #0F7A4B;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* ==========================================
+   ÉTAT VIDE
+   ========================================== */
+
+.etat-vide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 90px;
+  padding: 20px 12px;
+  background: transparent;
+  color: #1F1F1F;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.etat-vide p {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ==========================================
+   CHARGEMENT
+   ========================================== */
+
+.etat-chargement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 140px;
+  padding: 20px;
+  color: #1F1F1F;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid #F7B500;
+  border-top-color: #0F7A4B;
+  border-radius: 50%;
+  animation: rotation 0.8s linear infinite;
+}
+
+@keyframes rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   MESSAGE D'ERREUR
+   ========================================== */
+
+.message-erreur {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 13px 15px;
+  border-left: 3px solid #F7B500;
+  border-radius: 5px;
+  background: #FFFFFF;
+  color: #1F1F1F;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   RESPONSIVE — TABLETTES
+   ========================================== */
+
+@media (max-width: 900px) {
+  .detail-page {
+    padding: 20px;
+  }
+
+  .carte {
+    padding: 22px 20px;
+  }
+
+  .preuves-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .informations-grille {
+    column-gap: 24px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILES
+   ========================================== */
+
+@media (max-width: 600px) {
+  .detail-page {
+    padding: 14px 10px;
+  }
+
+  .page-header {
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 21px;
+  }
+
+  .sous-titre-page {
+    font-size: 12px;
+  }
+
+  .carte {
+    padding: 20px 14px;
+  }
+
+  .section-titre {
+    margin-bottom: 16px;
+  }
+
+  .section-titre h2 {
+    font-size: 14px;
+  }
+
+  .informations-grille {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .information {
+    padding: 8px 0;
+  }
+
+  .type-demande {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .preuves-grille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .preuve-image,
+  .preuve-video {
+    height: 200px;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .btn-principal,
+  .btn-secondaire {
+    width: 100%;
+  }
+
+  .total-ligne {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .table-responsive table {
+    min-width: 520px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITÉ
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+
+  .btn-retour,
+  .btn-principal,
+  .btn-secondaire,
+  .preuve-carte,
+  .table-responsive tbody tr {
+    transition: none;
+  }
+}

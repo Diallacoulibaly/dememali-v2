@@ -1,0 +1,207 @@
+
+<div class="page-rapport">
+
+  <header class="entete-page">
+    <div>
+      <h1>Créer un rapport de besoin</h1>
+      <p>Enregistrer les besoins identifiés lors de l'étude de terrain.</p>
+    </div>
+
+    <div class="actions-entete">
+      <button type="button" class="btn-notification" aria-label="Notifications">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <div class="message-chargement" *ngIf="chargement">
+    Chargement des informations de l'étude...
+  </div>
+
+  <div class="message-erreur" *ngIf="!chargement && erreurChargement">
+    <mat-icon>error_outline</mat-icon>
+    {{ erreurChargement }}
+  </div>
+
+  <ng-container *ngIf="!chargement && !erreurChargement && etude">
+
+    <!-- Informations de l'étude -->
+    <section class="carte-etude">
+      <h2>Étude de terrain</h2>
+      <p class="description-section">
+        Informations de l'étude terminée.
+      </p>
+
+      <div class="infos-etude">
+        <div class="info">
+          <span>Demande</span>
+          <strong>{{ demande?.titre || 'Demande d’aide' }}</strong>
+        </div>
+
+        <div class="info">
+          <span>Bénéficiaire</span>
+          <strong>
+            {{ demande?.beneficiairePrenom }}
+            {{ demande?.beneficiaireNom }}
+          </strong>
+        </div>
+
+        <div class="info">
+          <span>Lieu</span>
+          <strong>{{ etude.lieu }}</strong>
+        </div>
+
+        <div class="info">
+          <span>Date de visite</span>
+          <strong>
+            {{ etude.dateRealisation
+              ? (etude.dateRealisation | date:'dd MMM yyyy')
+              : 'Non renseignée' }}
+          </strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulaire -->
+    <form
+      class="formulaire-rapport"
+      #rapportForm="ngForm"
+      (ngSubmit)="enregistrer()"
+      novalidate>
+
+      <!-- Besoin identifié -->
+      <section class="section-formulaire">
+        <h2>Besoin identifié</h2>
+
+        <div class="grille-besoin">
+
+          <div class="champ">
+            <label for="titre">Titre du besoin *</label>
+
+            <input
+              id="titre"
+              name="titre"
+              type="text"
+              [(ngModel)]="formulaire.titre"
+              (ngModelChange)="validerChamp('titre')"
+              (blur)="validerChamp('titre')"
+              placeholder="Ex. : Aide alimentaire pour une famille">
+
+            <small class="erreur-champ" *ngIf="erreurs['titre']">
+              {{ erreurs['titre'] }}
+            </small>
+          </div>
+
+          <div class="champ">
+            <label for="besoinIdentifie">Besoin identifié *</label>
+
+            <textarea
+              id="besoinIdentifie"
+              name="besoinIdentifie"
+              rows="3"
+              [(ngModel)]="formulaire.besoinIdentifie"
+              (ngModelChange)="validerChamp('besoinIdentifie')"
+              (blur)="validerChamp('besoinIdentifie')"
+              placeholder="Décrivez le besoin constaté lors de la visite.">
+            </textarea>
+
+            <small class="erreur-champ"
+              *ngIf="erreurs['besoinIdentifie']">
+              {{ erreurs['besoinIdentifie'] }}
+            </small>
+          </div>
+
+        </div>
+
+        <div class="champ champ-large">
+          <label for="descriptionSituation">
+            Description détaillée du besoin *
+          </label>
+
+          <textarea
+            id="descriptionSituation"
+            name="descriptionSituation"
+            rows="2"
+            [(ngModel)]="formulaire.descriptionSituation"
+            (ngModelChange)="validerChamp('descriptionSituation')"
+            (blur)="validerChamp('descriptionSituation')"
+            placeholder="Décrivez la situation constatée, les difficultés, le nombre de personnes concernées, les besoins prioritaires et les éléments constatés pendant la visite.">
+          </textarea>
+
+          <small class="erreur-champ"
+            *ngIf="erreurs['descriptionSituation']">
+            {{ erreurs['descriptionSituation'] }}
+          </small>
+        </div>
+      </section>
+
+      <!-- Solution proposée -->
+      <section class="section-formulaire">
+        <h2>Solution proposée</h2>
+
+        <div class="champ champ-solution">
+          <label for="solutionProposee">Solution proposée *</label>
+
+          <textarea
+            id="solutionProposee"
+            name="solutionProposee"
+            rows="3"
+            [(ngModel)]="formulaire.solutionProposee"
+            (ngModelChange)="validerChamp('solutionProposee')"
+            (blur)="validerChamp('solutionProposee')"
+            placeholder="Décrivez la solution envisagée pour répondre aux besoins identifiés.">
+          </textarea>
+
+          <small class="erreur-champ"
+            *ngIf="erreurs['solutionProposee']">
+            {{ erreurs['solutionProposee'] }}
+          </small>
+        </div>
+      </section>
+
+      <!-- Estimation -->
+      <section class="section-formulaire section-estimation">
+        <h2>Estimation du besoin</h2>
+
+        <div class="champ champ-montant">
+          <label for="montantEstime">Montant estimé (FCFA) *</label>
+
+          <input
+            id="montantEstime"
+            name="montantEstime"
+            type="number"
+            min="1"
+            step="1"
+            [(ngModel)]="formulaire.montantEstime"
+            (ngModelChange)="validerChamp('montantEstime')"
+            (blur)="validerChamp('montantEstime')"
+            placeholder="Ex. : 250000">
+
+          <small class="erreur-champ"
+            *ngIf="erreurs['montantEstime']">
+            {{ erreurs['montantEstime'] }}
+          </small>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <footer class="actions-formulaire">
+        <button
+          type="button"
+          class="btn-annuler"
+          (click)="annuler()"
+          [disabled]="enregistrement">
+          Annuler
+        </button>
+
+       <button
+  type="submit"
+  class="btn-enregistrer"
+  [disabled]="enregistrement">
+  {{ enregistrement ? 'Enregistrement...' : 'Enregistrer' }}
+</button>
+      </footer>
+
+    </form>
+  </ng-container>
+</div>

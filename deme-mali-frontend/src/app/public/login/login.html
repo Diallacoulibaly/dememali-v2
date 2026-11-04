@@ -1,0 +1,157 @@
+<div class="auth-page">
+
+  <!-- Arrière-plan bicolore 50/50 : haut vert #0F7A4B en trait plein droit, bas crème #F7F3EA -->
+  <div class="auth-bg-split" aria-hidden="true"></div>
+
+  <div class="auth-container">
+
+    <!-- Carte centrale moderne harmonisée -->
+    <main class="auth-card" tabindex="-1">
+
+      <!-- Logo Dèmè Mali officiel centré -->
+      <div class="auth-logo-wrapper">
+        <div class="auth-logo-frame">
+          <img
+            src="assets/img/logo-deme-mali.png"
+            alt="Logo Dèmè Mali"
+            class="auth-logo-img"
+          >
+        </div>
+      </div>
+
+      <!-- En-tête : Titre & Sous-titre -->
+      <div class="auth-header">
+        <h1 class="auth-title">Connexion</h1>
+        <p class="auth-subtitle">Accédez à votre espace</p>
+      </div>
+
+      <!-- Message d'erreur -->
+      @if (error) {
+        <div class="auth-alert auth-alert-danger" role="alert">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>{{ error }}</span>
+        </div>
+      }
+
+      <!-- Information mot de passe oublié -->
+      @if (infoMessage) {
+        <div class="auth-alert auth-alert-info" role="status">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>{{ infoMessage }}</span>
+        </div>
+      }
+
+      <!-- Formulaire de connexion -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="auth-form">
+
+        <!-- Champ : Numéro de téléphone -->
+        <div class="auth-field">
+          <label class="auth-label" for="loginTelephone">Numéro de téléphone *</label>
+          <div class="auth-input-wrapper">
+            <input
+              type="tel"
+              class="auth-input"
+              id="loginTelephone"
+              placeholder="Ex. : 70 12 34 56"
+              autocomplete="tel"
+              formControlName="telephone"
+            >
+          </div>
+          @if (f['telephone'].touched && f['telephone'].hasError('required')) {
+            <span class="auth-field-error">
+              Le numéro de téléphone est obligatoire.
+            </span>
+          }
+        </div>
+
+        <!-- Champ : Mot de passe -->
+        <div class="auth-field">
+          <label class="auth-label" for="loginPassword">Mot de passe *</label>
+          <div class="auth-input-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="auth-input with-toggle"
+              id="loginPassword"
+              placeholder="Entrez votre mot de passe"
+              autocomplete="current-password"
+              formControlName="motDePasse"
+            >
+            <button
+              type="button"
+              class="auth-pw-toggle"
+              [attr.aria-label]="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+              (click)="showPassword = !showPassword"
+            >
+              @if (!showPassword) {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              } @else {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9.9 4.2A10 10 0 0 1 12 4c6.4 0 10 8 10 8a17 17 0 0 1-2.2 3.2"/>
+                  <path d="M6.6 6.6A17 17 0 0 0 2 12s3.6 8 10 8a9.7 9.7 0 0 0 5.4-1.6"/>
+                  <path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/>
+                  <path d="M2 2l20 20"/>
+                </svg>
+              }
+            </button>
+          </div>
+          @if (f['motDePasse'].touched && f['motDePasse'].hasError('required')) {
+            <span class="auth-field-error">
+              Le mot de passe est obligatoire.
+            </span>
+          }
+          @if (f['motDePasse'].touched && f['motDePasse'].hasError('minlength')) {
+            <span class="auth-field-error">
+              Le mot de passe doit comporter au moins 8 caractères.
+            </span>
+          }
+        </div>
+
+        <!-- Lien : Mot de passe oublié ? en vert #0F7A4B -->
+        <div class="auth-forgot-row">
+          <a
+            href="javascript:void(0)"
+            class="auth-forgot-link"
+            (click)="motDePasseOublie()"
+          >
+            Mot de passe oublié ?
+          </a>
+        </div>
+
+        <!-- Bouton pilule : Connexion -->
+        <button
+          type="submit"
+          class="auth-submit-btn"
+          [disabled]="loading"
+        >
+          @if (loading) {
+            <span class="auth-spinner" aria-hidden="true"></span>
+            <span>Connexion en cours...</span>
+          } @else {
+            <span>Connexion</span>
+          }
+        </button>
+
+      </form>
+
+      <!-- Lien d'inscription -->
+      <div class="auth-footer-link">
+        <span>Vous n'avez pas de compte ?</span>
+        <a routerLink="/register" class="auth-register-link">S'inscrire</a>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

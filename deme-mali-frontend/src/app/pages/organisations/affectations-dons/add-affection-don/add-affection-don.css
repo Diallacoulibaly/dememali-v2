@@ -1,0 +1,666 @@
+
+
+
+.page-affectation {
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+  margin: 0;
+  background-color: #F7F3EA;
+  color: #1F1F1F;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   EN-TÊTE
+========================================= */
+
+.entete-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.entete-page h1 {
+  margin: 0 0 8px;
+  color: #1F1F1F;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.entete-page p {
+  margin: 0;
+  color: #1F1F1F;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   MESSAGES GÉNÉRAUX
+========================================= */
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  box-sizing: border-box;
+}
+
+/* Message d'erreur en rouge */
+
+.message.erreur {
+  background-color: #FDECEC;
+  color: #C62828;
+  font-weight: 600;
+}
+
+.message.erreur mat-icon {
+  color: #C62828;
+}
+
+/* =========================================
+   FORMULAIRE
+   Occupe toute la largeur disponible
+========================================= */
+
+.carte-formulaire {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 28px;
+  border: none;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  box-shadow: 0 3px 12px rgba(31, 31, 31, 0.05);
+  box-sizing: border-box;
+}
+
+.titre-formulaire {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #F7F3EA;
+}
+
+.titre-formulaire h2 {
+  margin: 0 0 8px;
+  color: #0F7A4B;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.titre-formulaire p {
+  margin: 0;
+  color: #1F1F1F;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   CHAMPS DU FORMULAIRE
+========================================= */
+
+.groupe-champ {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.groupe-champ > label {
+  color: #1F1F1F;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.groupe-champ input,
+.groupe-champ select {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #E5E0D6;
+  border-radius: 8px;
+  outline: none;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.groupe-champ input::placeholder {
+  color: #1F1F1F;
+  opacity: 0.55;
+}
+
+
+.groupe-champ input:focus,
+.groupe-champ select:focus {
+  border-color: #0F7A4B;
+  box-shadow: 0 0 0 2px rgba(15, 122, 75, 0.12);
+}
+
+/* Champs invalides en rouge */
+
+
+
+/* =========================================
+   CHOIX DU TYPE ET DE LA DESTINATION
+========================================= */
+
+.choix-mode {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.choix-mode button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 16px;
+  border:1px solid #F7F3EA;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.choix-mode button mat-icon {
+  color: #0F7A4B;
+  font-size: 21px;
+}
+
+
+
+.choix-mode button.actif {
+  background-color: #0F7A4B;
+  color: #FFFFFF;
+}
+
+.choix-mode button.actif mat-icon {
+  color: #F7B500;
+}
+
+
+
+.liste-options {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% - 24px);
+  right: 0;
+  left: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(31, 31, 31, 0.12);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid #F7F3EA;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  text-align: left;
+  cursor: pointer;
+}
+
+.option:last-of-type {
+  border-bottom: none;
+}
+
+
+
+.option.selectionnee {
+  box-shadow: inset 3px 0 0 #0F7A4B;
+}
+
+.option > span {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.option strong {
+  color: #0F7A4B;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.option small {
+  color: #1F1F1F;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.option mat-icon {
+  flex-shrink: 0;
+  color: #0F7A4B;
+}
+
+.aucun-resultat {
+  margin: 0;
+  padding: 16px;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* =========================================
+   AIDE ET ERREURS DE VALIDATION
+========================================= */
+
+.aide-champ {
+  display: block;
+  color: #0F7A4B;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Messages d'erreur des champs */
+
+.erreur-champ {
+  display: block;
+  padding: 8px 10px;
+  border: none;
+  
+  color: #C62828;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.erreur-champ mat-icon {
+  color: #C62828;
+}
+
+/* =========================================
+   BOUTONS DU FORMULAIRE
+========================================= */
+
+.actions-formulaire {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #F7F3EA;
+}
+
+.bouton-secondaire,
+.bouton-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bouton-secondaire {
+  background-color: #F7F3EA;
+  color: #0F7A4B;
+}
+
+
+
+.bouton-principal {
+  background-color: #0F7A4B;
+  color: #FFFFFF;
+}
+
+.bouton-principal mat-icon {
+  color: #F7B500;
+}
+
+
+
+.bouton-secondaire:disabled,
+.bouton-principal:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   FENÊTRE DE CONFIRMATION
+========================================= */
+
+.modal-overlay {
+  position: fixed;
+  z-index: 99999;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 40px 16px;
+  background-color: rgba(31, 31, 31, 0.65);
+  backdrop-filter: blur(2px);
+  box-sizing: border-box;
+}
+
+.modal-confirmation {
+  margin: auto;
+  width: 100%;
+  max-width: 560px;
+  max-height: none;
+  overflow: visible;
+  padding: 28px;
+  border: none;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
+}
+
+.modal-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.modal-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: #F7F3EA;
+}
+
+.modal-icone mat-icon {
+  color: #0F7A4B;
+  font-size: 28px;
+}
+
+.modal-fermer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #F7F3EA;
+  color: #1F1F1F;
+  cursor: pointer;
+}
+
+
+
+.modal-confirmation h2 {
+  margin: 0 0 10px;
+  color: #0F7A4B;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modal-description {
+  margin: 0 0 22px;
+  color: #1F1F1F;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   RÉCAPITULATIF
+========================================= */
+
+.recapitulatif {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: none;
+  border-radius: 8px;
+  background-color: #F7F3EA;
+}
+
+.recap-ligne {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.recap-ligne:last-child {
+  border-bottom: none;
+}
+
+.recap-ligne span {
+  flex: 1;
+  color: #1F1F1F;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.recap-ligne strong {
+  flex: 1;
+  color: #1F1F1F;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.recap-ligne .montant-recap {
+  color: #0F7A4B;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* =========================================
+   AVERTISSEMENT
+========================================= */
+
+.avertissement-modal {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #F7F3EA;
+}
+
+.avertissement-modal mat-icon {
+  flex-shrink: 0;
+  color: #0F7A4B;
+}
+
+.avertissement-modal p {
+  margin: 0;
+  color: #1F1F1F;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   BOUTONS DE CONFIRMATION
+========================================= */
+
+.actions-modal {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.bouton-modal-annuler,
+.bouton-modal-confirmer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bouton-modal-annuler {
+  background-color: #F7F3EA;
+  color: #0F7A4B;
+}
+
+
+
+.bouton-modal-confirmer {
+  background-color: #0F7A4B;
+  color: #FFFFFF;
+}
+
+
+
+.bouton-modal-annuler:disabled,
+.bouton-modal-confirmer:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TABLETTES
+========================================= */
+
+@media (max-width: 768px) {
+  .page-affectation {
+    padding: 18px;
+  }
+
+  .entete-page h1 {
+    font-size: 23px;
+  }
+
+  .carte-formulaire {
+    padding: 22px;
+  }
+
+  .modal-overlay {
+    padding: 16px;
+  }
+
+  .modal-confirmation {
+    padding: 22px;
+  }
+}
+
+/* =========================================
+   MOBILES
+========================================= */
+
+@media (max-width: 480px) {
+  .page-affectation {
+    padding: 12px;
+  }
+
+  .entete-page {
+    margin-bottom: 20px;
+  }
+
+  .entete-page h1 {
+    font-size: 21px;
+  }
+
+  .carte-formulaire {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .titre-formulaire h2 {
+    font-size: 18px;
+  }
+
+  .choix-mode {
+    grid-template-columns: 1fr;
+  }
+
+  .actions-formulaire {
+    flex-direction: column-reverse;
+  }
+
+  .bouton-secondaire,
+  .bouton-principal {
+    width: 100%;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-confirmation {
+    max-height: calc(100vh - 24px);
+    padding: 18px;
+  }
+
+  .modal-confirmation h2 {
+    font-size: 19px;
+  }
+
+  .recap-ligne {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .recap-ligne span,
+  .recap-ligne strong {
+    font-size: 12px;
+  }
+
+  .actions-modal {
+    flex-direction: column-reverse;
+  }
+
+  .bouton-modal-annuler,
+  .bouton-modal-confirmer {
+    width: 100%;
+  }
+}

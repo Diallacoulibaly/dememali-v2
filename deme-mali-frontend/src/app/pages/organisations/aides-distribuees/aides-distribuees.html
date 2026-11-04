@@ -1,0 +1,200 @@
+
+<div class="distributions-page">
+
+  <header class="page-header">
+    <div>
+   
+      <h1>Aides distribuées</h1>
+      <p>Consultez vos aides distribuées aux bénéficiaires.</p>
+   
+    </div>
+
+    <button
+      type="button"
+      class="btn-principal"
+      (click)="nouvelleDistribution()"
+    >
+     
+      Nouvelle distribution
+    </button>
+  </header>
+
+  <div *ngIf="messageErreur" class="message erreur" role="alert">
+    {{ messageErreur }}
+  </div>
+
+  <section class="liste-section">
+ 
+
+    <div *ngIf="chargement" class="etat-message">
+      Chargement des distributions…
+    </div>
+
+    <div
+      *ngIf="!chargement && distributions.length === 0"
+      class="etat-vide"
+    >
+      <mat-icon>image_not_supported</mat-icon>
+      <h3>Aucune distribution enregistrée</h3>
+     
+
+      <button
+        type="button"
+        class="btn-principal"
+        (click)="nouvelleDistribution()"
+      >
+        Ajouter une distribution
+      </button>
+    </div>
+
+    <div
+      *ngIf="!chargement && distributions.length > 0"
+      class="distributions-grille"
+    >
+      <article
+        class="distribution-card"
+        *ngFor="let aide of distributions"
+      >
+        <div class="carte-media">
+
+          <ng-container
+            *ngIf="obtenirImage(aide) as image; else verifierVideo"
+          >
+            <img
+              class="media-principal"
+              [src]="urlPreuve(image.urlFichier)"
+              [alt]="'Preuve de la distribution ' + aide.id"
+              loading="lazy"
+            />
+          </ng-container>
+
+          <ng-template #verifierVideo>
+            <ng-container
+              *ngIf="obtenirVideo(aide) as video; else sansMedia"
+            >
+              <video
+                class="media-principal video-principal"
+                controls
+                preload="metadata"
+              >
+                <source [src]="urlPreuve(video.urlFichier)" />
+               
+              </video>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #sansMedia>
+            <div class="media-placeholder">
+      <mat-icon>image_not_supported</mat-icon>
+              <p>
+                {{
+                  possedePreuve(aide)
+                    ? 'Preuve documentaire'
+                    : 'Aucune preuve disponible'
+                }}
+              </p>
+            </div>
+          </ng-template>
+
+          
+        </div>
+
+        <div class="carte-contenu">
+         
+
+          <h3>
+            {{
+              trouverDemande(aide.demandeAideId)?.titre
+                || 'Demande ' + aide.demandeAideId
+            }}
+          </h3>
+
+          <div class="information-ligne">
+         <span class="info-icone">
+  <mat-icon>calendar_month</mat-icon>
+</span>
+            <div>
+              <small>Date de distribution</small>
+              <p>{{ aide.dateDistribution | date:'dd/MM/yyyy' }}</p>
+            </div>
+          </div>
+
+          <div class="information-ligne">
+            <span class="info-icone">
+  <mat-icon>location_on</mat-icon>
+</span>
+            <div>
+              <small>Lieu de distribution</small>
+              <p>{{ aide.lieuDistribution }}</p>
+            </div>
+          </div>
+
+          <ng-container
+            *ngIf="trouverDemande(aide.demandeAideId) as demande"
+          >
+            <div class="beneficiaire">
+              <div class="beneficiaire-avatar">
+                {{ (demande.beneficiairePrenom || 'B').charAt(0) }}
+                {{ (demande.beneficiaireNom || '').charAt(0) }}
+              </div>
+
+              <div>
+                <small>Bénéficiaire</small>
+                <strong>
+                  {{ demande.beneficiairePrenom || '' }}
+                  {{ demande.beneficiaireNom || '' }}
+                </strong>
+              </div>
+            </div>
+
+            <div class="type-aide">
+              <span>Type d'aide</span>
+              <strong>
+                {{
+                  demande.typeDemandeAide === 'FINANCIERE'
+                    ? 'Financière'
+                    : demande.typeDemandeAide === 'MATERIELLE'
+                      ? 'Matérielle'
+                      : demande.typeDemandeAide
+                }}
+              </strong>
+            </div>
+          </ng-container>
+
+          <div class="affectations-resume">
+            <div class="affectation-mini">
+              <span class="affectation-icone financier">F</span>
+              <div>
+                <small>Financières</small>
+                <strong>
+                  {{ aide.affectationsFinancieres?.length || 0 }}
+                  affectation(s)
+                </strong>
+              </div>
+            </div>
+
+            <div class="affectation-mini">
+              <span class="affectation-icone materiel">M</span>
+              <div>
+                <small>Matérielles</small>
+                <strong>
+                  {{ aide.affectationsMaterielles?.length || 0 }}
+                  affectation(s)
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="btn-detail"
+            (click)="voirDetail(aide.id)"
+          >
+            Voir le détail
+           
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

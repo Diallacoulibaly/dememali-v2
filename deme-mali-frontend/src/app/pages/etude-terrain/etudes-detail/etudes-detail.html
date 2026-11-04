@@ -1,0 +1,295 @@
+
+<div class="detail-page">
+
+  <header class="page-header">
+    <div>
+      <h1>Détail de l'étude de terrain</h1>
+     
+    </div>
+
+    <button
+      type="button"
+      *ngIf="etude && demande?.statut !== 'VALIDEE'"
+      (click)="modifierEtude()">
+      <mat-icon>edit</mat-icon>
+      Modifier l'étude
+    </button>
+  </header>
+
+  <!-- Chargement -->
+  <div class="etat-chargement" *ngIf="chargement">
+    Chargement des informations...
+  </div>
+
+  <!-- Erreur -->
+  <div class="message-erreur" *ngIf="!chargement && erreur">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ erreur }}</span>
+
+   
+  </div>
+
+  <ng-container *ngIf="!chargement && !erreur && etude">
+
+    <main class="detail-card">
+
+      <div class="etude-identite">
+        <h2>Étude de terrain {{ etude.id }}</h2>
+        <p>Évaluation de la situation du bénéficiaire</p>
+      </div>
+
+      <!-- Informations de l'étude -->
+      <section>
+        <h3>Informations de l'étude</h3>
+
+        <div class="informations-grid">
+
+          <div class="information">
+            <span>Titre</span>
+            <strong>
+              {{ demande?.titre || 'Demande d’aide' }}
+            </strong>
+          </div>
+
+          <div class="information">
+            <span>Demande associée</span>
+            <strong class="texte-vert">
+              {{ demande?.id || etude.demandeAideId }}
+            </strong>
+          </div>
+
+          <div class="information">
+            <span>Bénéficiaire</span>
+            <strong>
+              <ng-container *ngIf="demande; else beneficiaireInconnu">
+                {{ demande.beneficiairePrenom }}
+                {{ demande.beneficiaireNom }}
+              </ng-container>
+
+              <ng-template #beneficiaireInconnu>
+                Non renseigné
+              </ng-template>
+            </strong>
+          </div>
+
+          <div class="information">
+            <span>Date de réalisation</span>
+            <strong>
+              {{ etude.dateRealisation
+                ? (etude.dateRealisation | date:'dd MMMM yyyy')
+                : 'Non renseignée' }}
+            </strong>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="separateur"></div>
+
+      <!-- Objectif -->
+      <section class="section-contenu">
+        <h3>Objectif de l'étude</h3>
+
+        <div class="bloc-beige">
+          {{ etude.objectif || 'Aucun objectif renseigné.' }}
+        </div>
+      </section>
+
+      <!-- Observation -->
+      <section class="section-contenu">
+        <h3>Observation</h3>
+
+        <div class="bloc-observation">
+          {{ etude.observation || 'Aucune observation renseignée.' }}
+        </div>
+      </section>
+
+      <!-- Résultat -->
+      <section class="section-contenu">
+        <h3>Résultat</h3>
+
+        <div class="bloc-beige">
+          {{ etude.resultat || 'Aucun résultat renseigné.' }}
+        </div>
+      </section>
+
+      <div class="separateur separateur-rapports"></div>
+
+      <!-- Rapports associés -->
+      <section class="section-rapports">
+
+        <h3>Rapports de l'étude</h3>
+
+       
+
+        <!-- Rapport de besoin présent -->
+        <article
+          class="rapport-ligne"
+          *ngIf="rapportBesoin">
+
+          <div class="rapport-icone">
+            <mat-icon>description</mat-icon>
+          </div>
+
+          <div class="rapport-infos">
+            <strong>Rapport de besoin</strong>
+
+            <p>
+              Évaluation de la situation et des besoins
+
+              <ng-container *ngIf="rapportBesoin.dateCreation">
+                 {{ rapportBesoin.dateCreation | date:'dd MMMM yyyy' }}
+              </ng-container>
+            </p>
+          </div>
+
+        <div class="rapport-actions">
+  <button
+    type="button"
+    class="btn-voir"
+    (click)="voirRapportBesoin()">
+    Voir
+  </button>
+
+  <button
+    type="button"
+    class="btn-modifier"
+    *ngIf="demande?.statut !== 'VALIDEE'"
+    (click)="modifierRapportBesoin()">
+    Modifier
+  </button>
+</div>
+
+        </article>
+
+        <!-- Rapport de besoin absent -->
+        <article
+          class="rapport-ligne rapport-manquant"
+          *ngIf="!rapportBesoin">
+
+          <div class="rapport-icone">
+            <mat-icon>description</mat-icon>
+          </div>
+
+          <div class="rapport-infos">
+            <strong>Rapport de besoin</strong>
+            <p>Aucun rapport de besoin associé à cette étude.</p>
+          </div>
+
+          <div class="rapport-actions">
+
+            <button
+              type="button"
+              *ngIf="etudeTerminee"
+              class="btn-ajouter"
+              (click)="ajouterRapportBesoin()">
+              <mat-icon>add</mat-icon>
+              Ajouter
+            </button>
+
+            <span
+              *ngIf="!etudeTerminee"
+              class="statut-manquant">
+              Étude à terminer
+            </span>
+
+          </div>
+        </article>
+
+        <!-- Rapport technique présent -->
+        <article
+          class="rapport-ligne"
+          *ngIf="rapportTechnique">
+
+          <div class="rapport-icone">
+            <mat-icon>description</mat-icon>
+          </div>
+
+          <div class="rapport-infos">
+            <strong>Rapport technique</strong>
+
+            <p>
+            
+
+              <ng-container *ngIf="rapportTechnique.dateCreation">
+                {{ rapportTechnique.dateCreation | date:'dd MMMM yyyy' }}
+              </ng-container>
+            </p>
+
+            <p class="texte-vert">
+              Budget estimé :
+              {{ rapportTechnique.montantFinal | number:'1.0-0' }} FCFA
+            </p>
+          </div>
+
+          <div class="rapport-actions">
+  <button
+    type="button"
+    class="btn-voir"
+    (click)="voirRapportTechnique()">
+    Voir
+  </button>
+
+  <button
+    type="button"
+    class="btn-modifier"
+    *ngIf="demande?.statut !== 'VALIDEE'"
+    (click)="modifierRapportTechnique()">
+    Modifier
+  </button>
+</div>
+
+        </article>
+
+        <!-- Rapport technique absent -->
+        <article
+          class="rapport-ligne rapport-manquant"
+          *ngIf="!rapportTechnique">
+
+          <div class="rapport-icone">
+            <mat-icon>description</mat-icon>
+          </div>
+
+          <div class="rapport-infos">
+            <strong>Rapport technique</strong>
+
+            <p *ngIf="rapportBesoin">
+              Aucun rapport technique associé au rapport de besoin.
+            </p>
+
+            <p *ngIf="!rapportBesoin">
+              Créez d'abord le rapport de besoin.
+            </p>
+          </div>
+
+          <div class="rapport-actions">
+
+            <button
+              type="button"
+              *ngIf="rapportBesoin && etudeTerminee"
+              class="btn-ajouter"
+              (click)="ajouterRapportTechnique()">
+              <mat-icon>add</mat-icon>
+              Ajouter
+            </button>
+
+            <span
+              *ngIf="!etudeTerminee"
+              class="statut-manquant">
+              Étude à terminer
+            </span>
+
+            <span
+              *ngIf="etudeTerminee && !rapportBesoin"
+              class="statut-manquant">
+              En attente du rapport de besoin
+            </span>
+
+          </div>
+        </article>
+
+      </section>
+
+    </main>
+  </ng-container>
+</div>

@@ -1,0 +1,198 @@
+
+<div class="page">
+
+  <div class="entete-page">
+    <h2>Mes bénéficiaires</h2>
+    <p>Retrouvez les personnes et structures rattachées à votre organisation.</p>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="statistiques">
+
+    <div class="statistique">
+      <p>Total</p>
+      <h3>{{ beneficiaires.length }}</h3>
+    </div>
+
+    <div class="statistique attente">
+      <p>En attente</p>
+      <h3>{{ compterStatut('EN_ATTENTE') }}</h3>
+    </div>
+
+    <div class="statistique acceptes">
+      <p>Acceptés</p>
+      <h3>{{ compterStatut('ACCEPTE') }}</h3>
+    </div>
+
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="recherche">
+    <mat-icon>search</mat-icon>
+
+    <input
+      type="text"
+      placeholder="Rechercher un bénéficiaire..."
+      [(ngModel)]="recherche"
+      (ngModelChange)="reinitialiserPage()"
+    />
+  </div>
+
+  <!-- Chargement -->
+  <div *ngIf="chargement" class="message">
+    Chargement des bénéficiaires...
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="erreur" class="message">
+    {{ erreur }}
+  </div>
+
+  <!-- Liste des bénéficiaires -->
+  <div
+    class="liste-beneficiaires"
+    *ngIf="
+      !chargement &&
+      !erreur &&
+      beneficiairesFiltres().length > 0
+    "
+  >
+
+    <div
+      class="carte"
+      *ngFor="let beneficiaire of beneficiairesParPage()"
+    >
+
+      <div class="avatar">
+        <mat-icon>
+          {{
+            beneficiaire.typeBeneficiaire === 'PARTICULIER'
+              ? 'person'
+              : 'domain'
+          }}
+        </mat-icon>
+      </div>
+
+      <div class="informations">
+        <h3>
+          {{ beneficiaire.prenom }} {{ beneficiaire.nom }}
+        </h3>
+
+        <p>
+          {{
+            beneficiaire.typeBeneficiaire === 'PARTICULIER'
+              ? 'Particulier'
+              : 'Structure'
+          }}
+          <span>·</span>
+          {{ beneficiaire.ville || 'Ville non renseignée' }}
+        </p>
+      </div>
+
+      <!-- Statut du bénéficiaire -->
+      <span
+        class="statut"
+        [ngClass]="{
+          'accepte': beneficiaire.statut === 'ACCEPTE',
+          'en-attente': beneficiaire.statut === 'EN_ATTENTE',
+          'refuse': beneficiaire.statut === 'REFUSE'
+        }"
+      >
+        {{
+          beneficiaire.statut === 'ACCEPTE'
+            ? 'Accepté'
+            : beneficiaire.statut === 'EN_ATTENTE'
+              ? 'En attente'
+              : 'Refusé'
+        }}
+      </span>
+
+      <!-- Actions -->
+      <div class="actions-beneficiaire">
+
+        <button
+          type="button"
+          class="action-details"
+          (click)="voirDetails(beneficiaire.id)"
+        >
+          <mat-icon>visibility</mat-icon>
+          Voir les détails
+        </button>
+
+      </div>
+
+    </div>
+    <!-- Fin de la carte -->
+
+  </div>
+  <!-- Fin de la liste des bénéficiaires -->
+
+  <!-- Aucun résultat -->
+  <div
+    class="message"
+    *ngIf="
+      !chargement &&
+      !erreur &&
+      beneficiairesFiltres().length === 0
+    "
+  >
+    Aucun bénéficiaire trouvé.
+  </div>
+
+  <!-- Pagination (si > 10 éléments) -->
+<div
+  class="pagination"
+  *ngIf="
+    !chargement &&
+    !erreur &&
+    beneficiairesFiltres().length > taillePage
+  "
+>
+  <span class="pagination-info">
+    Affichage de
+    {{ (pageActuelle - 1) * taillePage + 1 }}
+    à
+   {{ finAffichage() }}
+    sur {{ beneficiairesFiltres().length }} bénéficiaires
+  </span>
+
+  <div class="pagination-boutons">
+    <button
+      type="button"
+      class="bouton-pagination page-item"
+      (click)="pagePrecedente()"
+      [disabled]="pageActuelle === 1"
+      title="Page précédente"
+      aria-label="Page précédente"
+    >
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <button
+      *ngFor="let page of pagesDisponibles()"
+      type="button"
+      class="numero-page page-item"
+      [class.active]="pageActuelle === page"
+      (click)="changerPage(page)"
+    >
+      {{ page }}
+    </button>
+
+    <button
+      type="button"
+      class="bouton-pagination page-item"
+      (click)="pageSuivante()"
+      [disabled]="pageActuelle === nombrePages()"
+      title="Page suivante"
+      aria-label="Page suivante"
+    >
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</div>
+
+</div>
